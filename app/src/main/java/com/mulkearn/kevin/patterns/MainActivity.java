@@ -1,5 +1,6 @@
 package com.mulkearn.kevin.patterns;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -33,10 +34,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    
-
-
-
 
     @Override
     public void onBackPressed() {
@@ -67,13 +64,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.fractal_tree) {
-            // Handle the camera action
-        } else if (id == R.id.item_2) {
-
+            Intent i_fractal = new Intent(this, FractalTreeActivity.class);
+            startActivity(i_fractal);
+        } else if (id == R.id.phyllotaxis) {
+            Intent i_phyllotaxis = new Intent(this, PhyllotaxisView.class);
+            startActivity(i_phyllotaxis);
         } else if (id == R.id.item_3) {
 
         }

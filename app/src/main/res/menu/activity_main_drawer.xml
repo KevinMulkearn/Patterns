@@ -9,9 +9,9 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Fractal Tree" />
         <item
-            android:id="@+id/item_2"
+            android:id="@+id/phyllotaxis"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Item 2" />
+            android:title="Phyllotaxis" />
         <item
             android:id="@+id/item_3"
             android:icon="@drawable/ic_menu_slideshow"
