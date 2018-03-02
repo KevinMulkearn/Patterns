@@ -1,47 +1,18 @@
 package com.mulkearn.kevin.patterns;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.view.SurfaceHolder;
 import android.view.View;
 
 public class PhyllotaxisActivity extends View {
 
-    Paint paint;
     int n = 0;
     int c = 20;
 
-//    double a = n * 137.5;
-//    double r = c * Math.sqrt(n);
-//
-//    double x = r * Math.cos(a) + (getWidth() / 2);
-//    double y = r * Math.sin(a) + (getHeight() / 2);
-
-
     public PhyllotaxisActivity(Context context) {
         super(context);
-
-        // create the Paint and set its color
-//        paint = new Paint();
-//        paint.setColor(Color.BLACK);
-
-
-//        ValueAnimator animator = ValueAnimator.ofInt(0, 50); // (start. end) values
-//        animator.setDuration(2000);
-//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator animation) {
-//                //radius = (int) animation.getAnimatedValue();
-//                //n = (int) animation.getAnimatedValue();
-//                invalidate();
-//            }
-//        });
-//        animator.start();
-
     }
 
 
@@ -53,23 +24,34 @@ public class PhyllotaxisActivity extends View {
 
     public void point(Canvas canvas){
 
-        float[] hsv = {n,100,100};
+        int col = mapValues(n, 0, 1000, 0, 360);
+        System.out.println(col);
 
-        paint = new Paint();
+        // create the Paint and set its color
+        float[] hsv = {col,100,100};
+        Paint paint = new Paint();
         paint.setColor(Color.HSVToColor(hsv));
 
+        // set variables
         double a = n * 137.5;
         double r = c * Math.sqrt(n);
-
         double x = r * Math.cos(a) + (getWidth() / 2);
         double y = r * Math.sin(a) + (getHeight() / 2);
 
+        // Draw dot
         canvas.drawCircle((float) x, (float) y, 10, paint);
         n++;
 
-        if(n < 600){
+        if(n < 1000){
             point(canvas);
         }
 
     }
+
+    //Maps one range of values to another
+    public int mapValues(int x, int in_min, int in_max, int out_min, int out_max)
+    {
+        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+
 }
