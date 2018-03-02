@@ -13,15 +13,21 @@ public class PhyllotaxisActivity extends View {
 
     Paint paint;
     int n = 0;
-    int c = 2;
+    int c = 20;
+
+//    double a = n * 137.5;
+//    double r = c * Math.sqrt(n);
+//
+//    double x = r * Math.cos(a) + (getWidth() / 2);
+//    double y = r * Math.sin(a) + (getHeight() / 2);
 
 
     public PhyllotaxisActivity(Context context) {
         super(context);
 
         // create the Paint and set its color
-        paint = new Paint();
-        paint.setColor(Color.BLACK);
+//        paint = new Paint();
+//        paint.setColor(Color.BLACK);
 
 
 //        ValueAnimator animator = ValueAnimator.ofInt(0, 50); // (start. end) values
@@ -41,6 +47,16 @@ public class PhyllotaxisActivity extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        point(canvas);
+    }
+
+
+    public void point(Canvas canvas){
+
+        float[] hsv = {n,100,100};
+
+        paint = new Paint();
+        paint.setColor(Color.HSVToColor(hsv));
 
         double a = n * 137.5;
         double r = c * Math.sqrt(n);
@@ -48,15 +64,12 @@ public class PhyllotaxisActivity extends View {
         double x = r * Math.cos(a) + (getWidth() / 2);
         double y = r * Math.sin(a) + (getHeight() / 2);
 
-        PhyloPoint p = new PhyloPoint((float) x, (float) y);
-        //p.show();
+        canvas.drawCircle((float) x, (float) y, 10, paint);
+        n++;
 
-        while (n < 50){
-            //canvas.drawCircle((float) x, (float) y, 10, paint);
-            //p.show();
-            n++;
+        if(n < 600){
+            point(canvas);
         }
-
 
     }
 }
