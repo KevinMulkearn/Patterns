@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.mulkearn.kevin.patterns.PhyllotaxisActivity
+        android:id="@+id/phyloView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="9">
+    </com.mulkearn.kevin.patterns.PhyllotaxisActivity>
+
+    <SeekBar
+        android:id="@+id/c_seeker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:max="100"
+        android:progress="20"/>
+
+</LinearLayout>

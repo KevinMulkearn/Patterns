@@ -8,6 +8,7 @@ public class PhyllotaxisView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new PhyllotaxisActivity(this));
+        setContentView(R.layout.activity_phyllotaxis);
+        //setContentView(new PhyllotaxisActivity(this));
     }
 }

@@ -4,17 +4,18 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.AttributeSet;
 import android.view.View;
+import android.widget.SeekBar;
 
 public class PhyllotaxisActivity extends View {
 
     int n = 0;
     int c = 20;
 
-    public PhyllotaxisActivity(Context context) {
-        super(context);
+    public PhyllotaxisActivity(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
-
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -25,7 +26,6 @@ public class PhyllotaxisActivity extends View {
     public void point(Canvas canvas){
 
         int col = mapValues(n, 0, 1000, 0, 360);
-        System.out.println(col);
 
         // create the Paint and set its color
         float[] hsv = {col,100,100};
