@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item android:id="@+id/map_range"
-            android:title="Map Range" />
-        <item android:id="@+id/repeat_loop"
-            android:title="Repeat Loop" />
-        <item android:id="@+id/spectrum"
-            android:title="Spectrum" />
-        <item android:id="@+id/path_follow"
-            android:title="Path Follow" />
+
+    <item android:title="Color Scheme">
+        <menu>
+
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/map_range"
+                    android:title="Map Range" />
+                <item
+                    android:id="@+id/repeat_loop"
+                    android:title="Repeat Loop" />
+                <item
+                    android:id="@+id/spectrum"
+                    android:title="Spectrum" />
+                <item
+                    android:id="@+id/path_follow"
+                    android:title="Path Follow" />
+            </group>
+
+        </menu>
+    </item>
+
+    <group>
+        <item
+            android:id="@+id/save"
+            android:title="Save Image"></item>
     </group>
+
 
 </menu>

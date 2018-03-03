@@ -8,18 +8,25 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
-public class PhyllotaxisActivity extends AppCompatActivity {
+public class PhyllotaxisActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     LinearLayout phyloView;
+    ScrollView settingsView;
     SeekBar c_seeker, max_seeker, size_seeker, angle_seeker;
-    Intent i_phylo;
+    TextView c_value_view, max_value_view, size_value_view, angle_value_view;
 
     int width, height;
     Resources resources;
@@ -30,7 +37,7 @@ public class PhyllotaxisActivity extends AppCompatActivity {
     int c = 20;
     int n = 0;
     int max = 1000;
-    int size = 5;
+    int size = 10;
     double angle = 137.5;
     double col = 200;
     int colorOption = 0;
@@ -41,10 +48,15 @@ public class PhyllotaxisActivity extends AppCompatActivity {
         setContentView(R.layout.activity_phyllotaxis);
 
         phyloView = (LinearLayout) findViewById(R.id.phyloView);
+        settingsView = (ScrollView)findViewById(R.id.settingsView);
         c_seeker = (SeekBar) findViewById(R.id.c_seeker);
         max_seeker = (SeekBar) findViewById(R.id.max_seeker);
         size_seeker = (SeekBar) findViewById(R.id.size_seeker);
         angle_seeker = (SeekBar) findViewById(R.id.angle_seeker);
+        c_value_view = (TextView) findViewById(R.id.c_value_view);
+        max_value_view = (TextView) findViewById(R.id.max_value_view);
+        size_value_view = (TextView) findViewById(R.id.size_value_view);
+        angle_value_view = (TextView) findViewById(R.id.angle_value_view);
 
         //Get window size
         DisplayMetrics dm = new DisplayMetrics();
@@ -66,6 +78,7 @@ public class PhyllotaxisActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 c = progress;
                 drawPhyllo();
+                setValues();
             }
             public void onStartTrackingTouch(SeekBar seekBar) {}
             public void onStopTrackingTouch(SeekBar seekBar) {}
@@ -73,8 +86,9 @@ public class PhyllotaxisActivity extends AppCompatActivity {
 
         max_seeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                max = progress;
+                max = progress + 1;
                 drawPhyllo();
+                setValues();
             }
             public void onStartTrackingTouch(SeekBar seekBar) {}
             public void onStopTrackingTouch(SeekBar seekBar) {}
@@ -84,6 +98,7 @@ public class PhyllotaxisActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 size = progress;
                 drawPhyllo();
+                setValues();
             }
             public void onStartTrackingTouch(SeekBar seekBar) {}
             public void onStopTrackingTouch(SeekBar seekBar) {}
@@ -92,8 +107,9 @@ public class PhyllotaxisActivity extends AppCompatActivity {
         angle_seeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 int temp = progress;
-                angle = mapValuesDouble((double) temp, 0, 30, 137.0, 138.0);
+                angle = mapValuesDouble((double) temp, 0, 100, 137.0, 138.0);
                 drawPhyllo();
+                setValues();
             }
             public void onStartTrackingTouch(SeekBar seekBar) {}
             public void onStopTrackingTouch(SeekBar seekBar) {}
@@ -148,6 +164,13 @@ public class PhyllotaxisActivity extends AppCompatActivity {
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
 
+    public void setValues(){
+        c_value_view.setText("Spacing Value: " + c);
+        max_value_view.setText("Number of Points: " + max);
+        size_value_view.setText("Point Size: " + size);
+        angle_value_view.setText(String.format("Angle: %.2f", angle));
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.phyllotaxis_menu, menu);
@@ -181,9 +204,30 @@ public class PhyllotaxisActivity extends AppCompatActivity {
                 colorOption = 4;
                 drawPhyllo();
                 return true;
+            case R.id.save:
+                //Save image to phone
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.fractal_tree) {
+            Intent i_fractal = new Intent(this, FractalTreeActivity.class);
+            startActivity(i_fractal);
+        } else if (id == R.id.phyllotaxis) {
+            Intent i_phyllotaxis = new Intent(this, PhyllotaxisActivity.class);
+            startActivity(i_phyllotaxis);
+        } else if (id == R.id.item_3) {
+
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
 }
