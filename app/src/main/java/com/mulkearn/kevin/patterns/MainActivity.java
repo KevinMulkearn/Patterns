@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
             Intent i_fractal = new Intent(this, FractalTreeActivity.class);
             startActivity(i_fractal);
         } else if (id == R.id.phyllotaxis) {
-            Intent i_phyllotaxis = new Intent(this, PhyllotaxisView.class);
+            Intent i_phyllotaxis = new Intent(this, PhyllotaxisActivity.class);
             startActivity(i_phyllotaxis);
         } else if (id == R.id.item_3) {
 
