@@ -6,12 +6,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.SeekBar;
 
 public class PhyllotaxisActivity extends View {
 
     int n = 0;
     int c = 20;
+
+    //setter
+    public void setValues(int c) {
+        //this.c = c;
+    }
 
     public PhyllotaxisActivity(Context context, AttributeSet attrs) {
         super(context, attrs);
