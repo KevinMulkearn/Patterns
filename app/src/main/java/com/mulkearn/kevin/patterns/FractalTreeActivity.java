@@ -47,7 +47,7 @@ public class FractalTreeActivity extends AppCompatActivity
     BitmapDrawable bmd;
 
     int width, height;
-    float angleRight = 30f, angleLeft = -30f, branchLen = 400, decayLength = 0.67f, levels = 80f;
+    float angleRight = 30f, angleLeft = -30f, branchLen = 400, decayLength = 0.67f, levels = 80f, thickness = 10f;
     int backHue = -1, treeHue = -1;
     String mCurrentPhotoPath;
 
@@ -180,15 +180,14 @@ public class FractalTreeActivity extends AppCompatActivity
             float[] back_hsv = {backHue, 100, 100};
             canvas.drawColor(Color.HSVToColor(back_hsv));
         }
-        branch(branchLen);
+        branch(branchLen, thickness);
         canvas.restore();
     }
 
-    public void branch(float branchLen){
+    public void branch(float branchLen, float thickness){
 
         //Set line color
         Paint paint = new Paint();
-        paint.setStrokeWidth(10f);
         if (treeHue == -1){
             paint.setColor(Color.BLACK);
         } else if(treeHue == -2){
@@ -201,17 +200,18 @@ public class FractalTreeActivity extends AppCompatActivity
         }
 
         //Create line
+        paint.setStrokeWidth(thickness);
         canvas.drawLine(0, 0, 0, -branchLen, paint);
         canvas.translate(0, -branchLen);
 
         if (branchLen > levels){
             canvas.save();
             canvas.rotate(angleRight);
-            branch(branchLen*decayLength);
+            branch(branchLen*decayLength, thickness*0.9f);
             canvas.restore();
             canvas.save();
             canvas.rotate(angleLeft);
-            branch(branchLen*decayLength);
+            branch(branchLen*decayLength, thickness*0.9f);
             canvas.restore();
         }
         //Draw lines
@@ -308,11 +308,11 @@ public class FractalTreeActivity extends AppCompatActivity
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
             out.close();
+            Toast.makeText(this, "Image Saved", Toast.LENGTH_LONG).show();
         }
         catch (Exception e) {
             Toast.makeText(this, "Error While Saving", Toast.LENGTH_LONG).show();
         }
-        Toast.makeText(this, "Image Saved", Toast.LENGTH_LONG).show();
     }
 
     private File createImageFile() throws IOException {

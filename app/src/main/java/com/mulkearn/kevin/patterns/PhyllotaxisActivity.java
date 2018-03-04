@@ -279,11 +279,11 @@ public class PhyllotaxisActivity extends AppCompatActivity
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
             out.close();
+            Toast.makeText(this, "Image Saved", Toast.LENGTH_LONG).show();
         }
         catch (Exception e) {
             Toast.makeText(this, "Error While Saving", Toast.LENGTH_LONG).show();
         }
-        Toast.makeText(this, "Image Saved", Toast.LENGTH_LONG).show();
     }
 
     private File createImageFile() throws IOException {

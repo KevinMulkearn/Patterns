@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.mulkearn.kevin.patterns.MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    tools:showIn="@layout/app_bar_main"
+    android:background="@drawable/back_gradient">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="10dp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,7 +23,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/about"
-                android:textColor="#000000"/>
+                android:textColor="#000000" />
 
         </LinearLayout>
     </ScrollView>
