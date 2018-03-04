@@ -27,6 +27,9 @@
         <item
             android:id="@+id/save"
             android:title="Save Image"></item>
+        <item
+            android:id="@+id/reset"
+            android:title="Reset Image"></item>
     </group>
 
 

@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -24,23 +26,17 @@ import android.widget.TextView;
 public class FractalTreeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
-    SeekBar angleRightSeeker, angleLeftSeeker, lengthSeeker, levelsSeeker;
+    SeekBar angleRightSeeker, angleLeftSeeker, lengthSeeker, levelsSeeker, backColorSeeker, treeColorSeeker;
     TextView angleRightView, angleLeftView, lengthView, levelsView;
     LinearLayout treeView;
     Resources resources;
-    Paint paint;
     Canvas canvas;
     Bitmap bm;
     BitmapDrawable bmd;
 
-    String hexTreeColor, hexBackColor;
-    int treeColor, backColor;
     int width, height;
     float angleRight = 30f, angleLeft = -30f, branchLen = 400, decayLength = 0.67f, levels = 80f;
-    float scale = 1f;
-    float[] tree_hsv = {0, 0, 0}, back_hsv = {0, 0, 100};
-    double col = 200;
-    int colorOption = 0;
+    int backHue = -1, treeHue = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +44,8 @@ public class FractalTreeActivity extends AppCompatActivity
         setContentView(R.layout.activity_fractal_tree);
 
         treeView = (LinearLayout) findViewById(R.id.treeView);
+        backColorSeeker = (SeekBar) findViewById(R.id.backColorSeeker);
+        treeColorSeeker = (SeekBar) findViewById(R.id.treeColorSeeker);
         angleRightSeeker = (SeekBar) findViewById(R.id.angleRightSeeker);
         angleLeftSeeker = (SeekBar) findViewById(R.id.angleLeftSeeker);
         lengthSeeker = (SeekBar) findViewById(R.id.lengthSeeker);
@@ -56,6 +54,12 @@ public class FractalTreeActivity extends AppCompatActivity
         angleLeftView = (TextView) findViewById(R.id.angleLeftView);
         lengthView = (TextView) findViewById(R.id.lengthView);
         levelsView = (TextView) findViewById(R.id.levelsView);
+
+        //Hue seeker
+        GradientDrawable hueGrad = new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, buildHueColorArray());
+        hueGrad.setGradientType(GradientDrawable.LINEAR_GRADIENT);
+        backColorSeeker.setBackgroundDrawable(hueGrad);
+        treeColorSeeker.setBackgroundDrawable(hueGrad);
 
         // Toolbar and drawer setup
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -74,11 +78,6 @@ public class FractalTreeActivity extends AppCompatActivity
         width = dm.widthPixels;
         height = dm.heightPixels;
 
-//        //Set line color
-//        paint = new Paint();
-//        paint.setColor(Color.BLUE);
-//        paint.setStrokeWidth(10f);
-
         //create Bitmap and Canvas
         bm = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bm);
@@ -86,8 +85,6 @@ public class FractalTreeActivity extends AppCompatActivity
 
         canvas.drawColor(Color.BLACK);
         canvas.translate(width/2, height-1);
-
-        //branch(branchLen);
         drawTree();
 
         //Right angle
@@ -134,13 +131,42 @@ public class FractalTreeActivity extends AppCompatActivity
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
+        //Color of tree
+        backColorSeeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                backHue = progress;
+                drawTree();
+                setValues();
+            }
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                backColorSeeker.setVisibility(View.GONE);
+            }
+        });
+
+        //Color of background
+        treeColorSeeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                treeHue = progress;
+                drawTree();
+                setValues();
+            }
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                treeColorSeeker.setVisibility(View.GONE);
+            }
+        });
+
     }
 
     public void drawTree(){
         canvas.save();
-        canvas.scale(scale,scale);
-        //canvas.drawColor(Color.HSVToColor(back_hsv));
-        canvas.drawColor(Color.WHITE);
+        if (backHue == -1){
+            canvas.drawColor(Color.WHITE);
+        } else {
+            float[] back_hsv = {backHue, 100, 100};
+            canvas.drawColor(Color.HSVToColor(back_hsv));
+        }
         branch(branchLen);
         canvas.restore();
     }
@@ -150,20 +176,16 @@ public class FractalTreeActivity extends AppCompatActivity
         //Set line color
         Paint paint = new Paint();
         paint.setStrokeWidth(10f);
-
-        if (colorOption == 1){
-            col = branchLen % 800;
-        } else {
-            col = 200;
+        if (treeHue == -1){
+            paint.setColor(Color.BLACK);
+        } else if(treeHue == -2){
+            double col = branchLen % 800;
+            float[] hsv = {(int) col,100,100};
+            paint.setColor(Color.HSVToColor(hsv));
+        }else {
+            float[] hsv = {treeHue,100,100};
+            paint.setColor(Color.HSVToColor(hsv));
         }
-
-        float[] hsv = {(int) col,100,100};
-        paint.setColor(Color.HSVToColor(hsv));
-
-//
-//        paint = new Paint();
-//        paint.setColor(Color.BLUE);
-//        paint.setStrokeWidth(10f);
 
         //Create line
         canvas.drawLine(0, 0, 0, -branchLen, paint);
@@ -210,17 +232,21 @@ public class FractalTreeActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.back_color:
-                //Add Action
+                backColorSeeker.setVisibility(View.VISIBLE);
                 return true;
             case R.id.tree_color:
-                //Add Action
+                treeColorSeeker.setVisibility(View.VISIBLE);
                 return true;
             case R.id.spectrum:
-                colorOption = 1;
+                treeHue = -2;
                 drawTree();
                 return true;
             case R.id.save:
                 //Add Action
+                return true;
+            case R.id.reset:
+                Intent i_reset = new Intent(this, FractalTreeActivity.class);
+                startActivity(i_reset);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -248,6 +274,15 @@ public class FractalTreeActivity extends AppCompatActivity
     //Maps one range of values to another
     public float mapValuesFloat(float x, float in_min, float in_max, float out_min, float out_max) {
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+
+    private int[] buildHueColorArray(){
+        int[] hueArr = new int[361];
+        int count = 0;
+        for (int i = hueArr.length - 1; i >= 0; i--, count++) {
+            hueArr[count] = Color.HSVToColor(new float[]{i, 1f, 1f});
+        }
+        return hueArr;
     }
 
 }

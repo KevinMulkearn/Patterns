@@ -231,6 +231,10 @@ public class PhyllotaxisActivity extends AppCompatActivity
             case R.id.save:
                 //Save image to phone
                 return true;
+            case R.id.reset:
+                Intent i_reset = new Intent(this, PhyllotaxisActivity.class);
+                startActivity(i_reset);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
