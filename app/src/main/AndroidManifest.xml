@@ -22,7 +22,8 @@
         <activity android:name=".FractalTreeActivity"
             android:label="Fractal"/>
         <activity android:name=".PhyllotaxisActivity"
-            android:label="Phyllotaxis"/>
+            android:label="Phyllotaxis"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
