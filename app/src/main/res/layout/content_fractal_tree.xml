@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.mulkearn.kevin.patterns.FractalTreeActivity"
+    tools:showIn="@layout/app_bar_fractal_tree">
+
+    <LinearLayout
+        android:id="@+id/treeView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/settingsView">
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/settingsView"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/angleRightView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Angle Right: 30"
+                android:gravity="center_vertical"
+                android:background="#BADCFF"
+                android:paddingStart="10dp"/>
+            <SeekBar
+                android:id="@+id/angleRightSeeker"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:max="180"
+                android:progress="30"
+                android:background="#BADCFF"/>
+
+            <TextView
+                android:id="@+id/angleLeftView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Angle Left: 30"
+                android:gravity="center_vertical"
+                android:background="#FFBABA"
+                android:paddingStart="10dp"/>
+            <SeekBar
+                android:id="@+id/angleLeftSeeker"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:max="180"
+                android:progress="30"
+                android:background="#FFBABA"/>
+
+            <TextView
+                android:id="@+id/lengthView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Trunk Length: 400"
+                android:gravity="center_vertical"
+                android:background="#BAFFC1"
+                android:paddingStart="10dp"/>
+            <SeekBar
+                android:id="@+id/lengthSeeker"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:max="800"
+                android:progress="400"
+                android:background="#BAFFC1"/>
+
+            <TextView
+                android:id="@+id/levelsView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Levels"
+                android:gravity="center_vertical"
+                android:background="#F1BAFF"
+                android:paddingStart="10dp"/>
+            <SeekBar
+                android:id="@+id/levelsSeeker"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:max="100"
+                android:progress="80"
+                android:background="#F1BAFF"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

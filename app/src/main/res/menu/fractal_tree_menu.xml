@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Color Scheme">
+        <menu>
+
+            <group>
+                <item
+                    android:id="@+id/back_color"
+                    android:title="Background Color" />
+                <item
+                    android:id="@+id/tree_color"
+                    android:title="Tree Color" />
+                <item
+                    android:id="@+id/spectrum"
+                    android:title="Spectrum" />
+            </group>
+
+        </menu>
+    </item>
+
+    <group>
+        <item
+            android:id="@+id/save"
+            android:title="Save Image"></item>
+    </group>
+
+</menu>

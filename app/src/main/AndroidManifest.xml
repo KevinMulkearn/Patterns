@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".FractalTreeActivity"
-            android:label="Fractal"/>
+            android:label="Fractal"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".PhyllotaxisActivity"
             android:label="Phyllotaxis"
             android:theme="@style/AppTheme.NoActionBar"/>
