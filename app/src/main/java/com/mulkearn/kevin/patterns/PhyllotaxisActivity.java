@@ -7,7 +7,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +23,14 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class PhyllotaxisActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,6 +45,7 @@ public class PhyllotaxisActivity extends AppCompatActivity
     Canvas canvas;
     Bitmap bm;
     BitmapDrawable bmd;
+    String mCurrentPhotoPath;
 
     int c = 20;
     int n = 0;
@@ -229,7 +240,7 @@ public class PhyllotaxisActivity extends AppCompatActivity
                 drawPhyllo();
                 return true;
             case R.id.save:
-                //Save image to phone
+                saveImage(bmd);
                 return true;
             case R.id.reset:
                 Intent i_reset = new Intent(this, PhyllotaxisActivity.class);
@@ -257,6 +268,47 @@ public class PhyllotaxisActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public  void saveImage(BitmapDrawable bmd){
+        // Get the bitmap from drawable object
+        Bitmap bitmap = bmd.getBitmap();
+        try {
+            File file = createImageFile();
+            FileOutputStream out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+        }
+        catch (Exception e) {
+            Toast.makeText(this, "Error While Saving", Toast.LENGTH_LONG).show();
+        }
+        Toast.makeText(this, "Image Saved", Toast.LENGTH_LONG).show();
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("ddMMyy_HHmmss").format(new Date());
+        String imageFileName = "Phyllo_" + timeStamp;
+        String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
+        File storageDir = new File(root + "/PatternsImages"); //Save location
+        storageDir.mkdirs();
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        mCurrentPhotoPath = image.getAbsolutePath();
+        galleryAddPic();
+        return image;
+    }
+
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
     }
 
 }
