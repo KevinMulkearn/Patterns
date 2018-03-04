@@ -8,7 +8,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
@@ -32,9 +31,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-
-
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -42,23 +38,6 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                //Add Action
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -72,8 +51,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.phyllotaxis) {
             Intent i_phyllotaxis = new Intent(this, PhyllotaxisActivity.class);
             startActivity(i_phyllotaxis);
-        } else if (id == R.id.item_3) {
-
+        } else if (id == R.id.home) {
+            Intent i_home = new Intent(this, MainActivity.class);
+            startActivity(i_home);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -5,17 +5,14 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/home"
+            android:title="Home" />
+        <item
             android:id="@+id/fractal_tree"
-            android:icon="@drawable/ic_menu_camera"
             android:title="Fractal Tree" />
         <item
             android:id="@+id/phyllotaxis"
-            android:icon="@drawable/ic_menu_gallery"
             android:title="Phyllotaxis" />
-        <item
-            android:id="@+id/item_3"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Item 3" />
     </group>
 
 

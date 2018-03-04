@@ -250,8 +250,9 @@ public class PhyllotaxisActivity extends AppCompatActivity
         } else if (id == R.id.phyllotaxis) {
             Intent i_phyllotaxis = new Intent(this, PhyllotaxisActivity.class);
             startActivity(i_phyllotaxis);
-        } else if (id == R.id.item_3) {
-
+        } else if (id == R.id.home) {
+            Intent i_home = new Intent(this, MainActivity.class);
+            startActivity(i_home);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

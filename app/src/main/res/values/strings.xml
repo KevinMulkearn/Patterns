@@ -3,6 +3,14 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
+
+    <string name="about">About:\n\n
+        This App lets you explore different patterns found in nature.
+        You can play around with different variables to see how it affects
+        the result.\n\n
+
+        Enjoy!
+    </string>
+
 </resources>
