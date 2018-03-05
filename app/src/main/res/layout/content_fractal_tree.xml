@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,105 +12,130 @@
         android:id="@+id/treeView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_above="@+id/settingsView">
+        android:layout_above="@+id/valueOptions"
+        android:orientation="vertical">
 
         <SeekBar
             android:id="@+id/backColorSeeker"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:background="#FFFFFF"
             android:max="360"
             android:progress="180"
-            android:background="#FFFFFF"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <SeekBar
             android:id="@+id/treeColorSeeker"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:background="#FFFFFF"
             android:max="360"
             android:progress="180"
-            android:background="#FFFFFF"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/settingsView"
+
+    <LinearLayout
+        android:id="@+id/valueOptions"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="30dp"
+        android:layout_above="@+id/angleRightSeeker"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/angleRightView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#577480"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="displayRightSeeker"
+            android:text="Angle Right"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/angleLeftView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#36484F"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="displayLeftSeeker"
+            android:text="Angle Left"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/lengthView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#263338"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="displayLengthSeeker"
+            android:text="Trunk Length"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/levelsView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#1A2326"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="displayLevelsSeeker"
+            android:text="Levels"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/valueView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="30" />
+
+    </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/angleRightSeeker"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        android:background="#577480"
+        android:max="180"
+        android:progress="30"
+        android:visibility="visible" />
 
-            <TextView
-                android:id="@+id/angleRightView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="Angle Right: 30"
-                android:gravity="center_vertical"
-                android:background="#BADCFF"
-                android:paddingStart="10dp"/>
-            <SeekBar
-                android:id="@+id/angleRightSeeker"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:max="180"
-                android:progress="30"
-                android:background="#BADCFF"/>
+    <SeekBar
+        android:id="@+id/angleLeftSeeker"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:background="#36484F"
+        android:max="180"
+        android:progress="30"
+        android:visibility="invisible" />
 
-            <TextView
-                android:id="@+id/angleLeftView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="Angle Left: 30"
-                android:gravity="center_vertical"
-                android:background="#FFBABA"
-                android:paddingStart="10dp"/>
-            <SeekBar
-                android:id="@+id/angleLeftSeeker"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:max="180"
-                android:progress="30"
-                android:background="#FFBABA"/>
+    <SeekBar
+        android:id="@+id/lengthSeeker"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:background="#263338"
+        android:max="800"
+        android:progress="400"
+        android:visibility="invisible" />
 
-            <TextView
-                android:id="@+id/lengthView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="Trunk Length: 400"
-                android:gravity="center_vertical"
-                android:background="#BAFFC1"
-                android:paddingStart="10dp"/>
-            <SeekBar
-                android:id="@+id/lengthSeeker"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:max="800"
-                android:progress="400"
-                android:background="#BAFFC1"/>
-
-            <TextView
-                android:id="@+id/levelsView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="Levels"
-                android:gravity="center_vertical"
-                android:background="#F1BAFF"
-                android:paddingStart="10dp"/>
-            <SeekBar
-                android:id="@+id/levelsSeeker"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:max="100"
-                android:progress="80"
-                android:background="#F1BAFF"/>
-
-        </LinearLayout>
-    </ScrollView>
+    <SeekBar
+        android:id="@+id/levelsSeeker"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:background="#1A2326"
+        android:max="100"
+        android:progress="80"
+        android:visibility="invisible" />
 
 </RelativeLayout>

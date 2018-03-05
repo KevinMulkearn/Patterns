@@ -12,86 +12,111 @@
         android:id="@+id/phyloView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_above="@+id/settingsView">
+        android:layout_above="@+id/valueOptions"
+        android:orientation="vertical">
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/settingsView"
+
+    <LinearLayout
+        android:id="@+id/valueOptions"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="30dp"
+        android:layout_above="@+id/c_seeker"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/c_value_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#577480"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="displayCSeeker"
+            android:text="Point Spacing"
+            android:textColor="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/max_value_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#36484F"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="displayMaxSeeker"
+            android:text="Number of Points"
+            android:textColor="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/size_value_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#263338"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="displaySizeSeeker"
+            android:text="Point Size"
+            android:textColor="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/angle_value_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#1A2326"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="displayAngleSeeker"
+            android:text="Angle"
+            android:textColor="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/valueView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="30" />
+
+    </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/c_seeker"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        android:background="#577480"
+        android:max="100"
+        android:progress="20"
+        android:visibility="visible" />
 
-            <TextView
-                android:id="@+id/c_value_view"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="Spacing Value: 20"
-                android:gravity="center_vertical"
-                android:background="#BADCFF"
-                android:paddingStart="10dp"/>
-            <SeekBar
-                android:id="@+id/c_seeker"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:max="100"
-                android:progress="20"
-                android:background="#BADCFF"/>
+    <SeekBar
+        android:id="@+id/max_seeker"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:background="#36484F"
+        android:max="2999"
+        android:progress="1000"
+        android:visibility="invisible" />
 
-            <TextView
-                android:id="@+id/max_value_view"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="Number of Points: 1000"
-                android:gravity="center_vertical"
-                android:background="#FFBABA"
-                android:paddingStart="10dp"/>
-            <SeekBar
-                android:id="@+id/max_seeker"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:max="2999"
-                android:progress="1000"
-                android:background="#FFBABA"/>
+    <SeekBar
+        android:id="@+id/size_seeker"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:background="#263338"
+        android:max="20"
+        android:progress="10"
+        android:visibility="invisible" />
 
-            <TextView
-                android:id="@+id/size_value_view"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="Point Size: 10"
-                android:gravity="center_vertical"
-                android:background="#BAFFC1"
-                android:paddingStart="10dp"/>
-            <SeekBar
-                android:id="@+id/size_seeker"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:max="20"
-                android:progress="10"
-                android:background="#BAFFC1"/>
-
-            <TextView
-                android:id="@+id/angle_value_view"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="Angle: 137.5"
-                android:gravity="center_vertical"
-                android:background="#F1BAFF"
-                android:paddingStart="10dp"/>
-            <SeekBar
-                android:id="@+id/angle_seeker"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:max="100"
-                android:progress="50"
-                android:background="#F1BAFF"/>
-
-        </LinearLayout>
-    </ScrollView>
+    <SeekBar
+        android:id="@+id/angle_seeker"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="30dp"
+        android:background="#1A2326"
+        android:max="100"
+        android:progress="50"
+        android:visibility="invisible" />
 
 </RelativeLayout>

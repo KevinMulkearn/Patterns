@@ -39,7 +39,7 @@ public class FractalTreeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     SeekBar angleRightSeeker, angleLeftSeeker, lengthSeeker, levelsSeeker, backColorSeeker, treeColorSeeker;
-    TextView angleRightView, angleLeftView, lengthView, levelsView;
+    TextView valueView;
     LinearLayout treeView;
     Resources resources;
     Canvas canvas;
@@ -63,10 +63,7 @@ public class FractalTreeActivity extends AppCompatActivity
         angleLeftSeeker = (SeekBar) findViewById(R.id.angleLeftSeeker);
         lengthSeeker = (SeekBar) findViewById(R.id.lengthSeeker);
         levelsSeeker = (SeekBar) findViewById(R.id.levelsSeeker);
-        angleRightView = (TextView) findViewById(R.id.angleRightView);
-        angleLeftView = (TextView) findViewById(R.id.angleLeftView);
-        lengthView = (TextView) findViewById(R.id.lengthView);
-        levelsView = (TextView) findViewById(R.id.levelsView);
+        valueView = (TextView) findViewById(R.id.valueView);
 
         //Hue seeker
         GradientDrawable hueGrad = new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, buildHueColorArray());
@@ -104,8 +101,8 @@ public class FractalTreeActivity extends AppCompatActivity
         angleRightSeeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 angleRight = progress;
+                valueView.setText("" + (int) angleRight);
                 drawTree();
-                setValues();
             }
             public void onStartTrackingTouch(SeekBar seekBar) {}
             public void onStopTrackingTouch(SeekBar seekBar) {}
@@ -115,8 +112,8 @@ public class FractalTreeActivity extends AppCompatActivity
         angleLeftSeeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 angleLeft = -progress;
+                valueView.setText("" + (int) angleLeft);
                 drawTree();
-                setValues();
             }
             public void onStartTrackingTouch(SeekBar seekBar) {}
             public void onStopTrackingTouch(SeekBar seekBar) {}
@@ -126,8 +123,8 @@ public class FractalTreeActivity extends AppCompatActivity
         lengthSeeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 branchLen = progress;
+                valueView.setText("" + (int) branchLen);
                 drawTree();
-                setValues();
             }
             public void onStartTrackingTouch(SeekBar seekBar) {}
             public void onStopTrackingTouch(SeekBar seekBar) {}
@@ -137,8 +134,8 @@ public class FractalTreeActivity extends AppCompatActivity
         levelsSeeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 levels = mapValuesFloat(progress, 0, 100, branchLen, 10);
+                valueView.setText("");
                 drawTree();
-                setValues();
             }
             public void onStartTrackingTouch(SeekBar seekBar) {}
             public void onStopTrackingTouch(SeekBar seekBar) {}
@@ -149,7 +146,6 @@ public class FractalTreeActivity extends AppCompatActivity
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 backHue = progress;
                 drawTree();
-                setValues();
             }
             public void onStartTrackingTouch(SeekBar seekBar) {}
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -162,7 +158,6 @@ public class FractalTreeActivity extends AppCompatActivity
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 treeHue = progress;
                 drawTree();
-                setValues();
             }
             public void onStartTrackingTouch(SeekBar seekBar) {}
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -216,13 +211,6 @@ public class FractalTreeActivity extends AppCompatActivity
         }
         //Draw lines
         treeView.setBackground(bmd);
-    }
-
-    public void setValues(){
-        angleRightView.setText("Angle Right: " + angleRight);
-        angleLeftView.setText("Angle Left: " + angleLeft);
-        lengthView.setText("Trunk Length: " + branchLen);
-        //levelsView.setText("Levels: " + levels);
     }
 
     @Override
@@ -341,4 +329,35 @@ public class FractalTreeActivity extends AppCompatActivity
     }
 
 
+    public void displayRightSeeker(View view) {
+        valueView.setText("" + (int) angleRight);
+        angleRightSeeker.setVisibility(View.VISIBLE);
+        angleLeftSeeker.setVisibility(View.INVISIBLE);
+        lengthSeeker.setVisibility(View.INVISIBLE);
+        levelsSeeker.setVisibility(View.INVISIBLE);
+    }
+
+    public void displayLeftSeeker(View view) {
+        valueView.setText("" + (int) angleLeft);
+        angleRightSeeker.setVisibility(View.INVISIBLE);
+        angleLeftSeeker.setVisibility(View.VISIBLE);
+        lengthSeeker.setVisibility(View.INVISIBLE);
+        levelsSeeker.setVisibility(View.INVISIBLE);
+    }
+
+    public void displayLengthSeeker(View view) {
+        valueView.setText("" + (int) branchLen);
+        angleRightSeeker.setVisibility(View.INVISIBLE);
+        angleLeftSeeker.setVisibility(View.INVISIBLE);
+        lengthSeeker.setVisibility(View.VISIBLE);
+        levelsSeeker.setVisibility(View.INVISIBLE);
+    }
+
+    public void displayLevelsSeeker(View view) {
+        valueView.setText("");
+        angleRightSeeker.setVisibility(View.INVISIBLE);
+        angleLeftSeeker.setVisibility(View.INVISIBLE);
+        lengthSeeker.setVisibility(View.INVISIBLE);
+        levelsSeeker.setVisibility(View.VISIBLE);
+    }
 }
