@@ -167,6 +167,37 @@ public class FractalTreeActivity extends AppCompatActivity
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        int rAngVis = angleRightSeeker.getVisibility();
+        int lAngVis = angleLeftSeeker.getVisibility();
+        int lenVis = lengthSeeker.getVisibility();
+        int levVis = levelsSeeker.getVisibility();
+        String value = valueView.getText().toString();
+        outState.putInt("rAngVis", rAngVis);
+        outState.putInt("lAngVis", lAngVis);
+        outState.putInt("lenVis", lenVis);
+        outState.putInt("levVis", levVis);
+        outState.putString("value", value);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        // 0 = visible, 1 = invisible
+        int rAngVis = savedInstanceState.getInt("rAngVis", 0);
+        int lAngVis = savedInstanceState.getInt("lAngVis", 1);
+        int lenVis = savedInstanceState.getInt("lenVis", 1);
+        int levVis = savedInstanceState.getInt("levVis", 1);
+        String value = savedInstanceState.getString("value");
+        angleRightSeeker.setVisibility(rAngVis);
+        angleLeftSeeker.setVisibility(lAngVis);
+        lengthSeeker.setVisibility(lenVis);
+        levelsSeeker.setVisibility(levVis);
+        valueView.setText(value);
+    }
+
     public void drawTree(){
         canvas.save();
         if (backHue == -1){
@@ -180,7 +211,6 @@ public class FractalTreeActivity extends AppCompatActivity
     }
 
     public void branch(float branchLen, float thickness){
-
         //Set line color
         Paint paint = new Paint();
         if (treeHue == -1){
@@ -193,12 +223,10 @@ public class FractalTreeActivity extends AppCompatActivity
             float[] hsv = {treeHue,100,100};
             paint.setColor(Color.HSVToColor(hsv));
         }
-
         //Create line
         paint.setStrokeWidth(thickness);
         canvas.drawLine(0, 0, 0, -branchLen, paint);
         canvas.translate(0, -branchLen);
-
         if (branchLen > levels){
             canvas.save();
             canvas.rotate(angleRight);

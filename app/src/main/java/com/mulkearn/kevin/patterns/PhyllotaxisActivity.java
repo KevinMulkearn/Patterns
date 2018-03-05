@@ -139,6 +139,37 @@ public class PhyllotaxisActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        int cVis = c_seeker.getVisibility();
+        int maxVis = max_seeker.getVisibility();
+        int sizeVis = size_seeker.getVisibility();
+        int angVis = angle_seeker.getVisibility();
+        String value = valueView.getText().toString();
+        outState.putInt("cVis", cVis);
+        outState.putInt("maxVis", maxVis);
+        outState.putInt("sizeVis", sizeVis);
+        outState.putInt("angVis", angVis);
+        outState.putString("value", value);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        // 0 = visible, 1 = invisible
+        int cVis = savedInstanceState.getInt("cVis", 0);
+        int maxVis = savedInstanceState.getInt("maxVis", 1);
+        int sizeVis = savedInstanceState.getInt("sizeVis", 1);
+        int angVis = savedInstanceState.getInt("angVis", 1);
+        String value = savedInstanceState.getString("value");
+        c_seeker.setVisibility(cVis);
+        max_seeker.setVisibility(maxVis);
+        size_seeker.setVisibility(sizeVis);
+        angle_seeker.setVisibility(angVis);
+        valueView.setText(value);
+    }
+
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
