@@ -1,5 +1,6 @@
 package com.mulkearn.kevin.patterns;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -7,16 +8,19 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,9 +30,12 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,6 +47,7 @@ public class PhyllotaxisActivity extends AppCompatActivity
     SeekBar c_seeker, max_seeker, size_seeker, angle_seeker;
     TextView valueView;
 
+    public  static final int RequestPermissionCode  = 1 ;
     int width, height;
     Resources resources;
     Canvas canvas;
@@ -67,7 +75,6 @@ public class PhyllotaxisActivity extends AppCompatActivity
         angle_seeker = (SeekBar) findViewById(R.id.angle_seeker);
         valueView = (TextView) findViewById(R.id.valueView);
 
-
         //Toolbar and drawer setup
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -94,6 +101,8 @@ public class PhyllotaxisActivity extends AppCompatActivity
         canvas.translate(width/2, height/2);
 
         drawPhyllo();
+
+        EnableRuntimePermission();
 
         c_seeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -191,6 +200,7 @@ public class PhyllotaxisActivity extends AppCompatActivity
         double r = c * Math.sqrt(n);
         double x = r * Math.cos(Math.toRadians(a));
         double y = r * Math.sin(Math.toRadians(a));
+        Paint paint = new Paint();
 
         // create the Paint and set its color
         if (colorOption == 1){
@@ -203,16 +213,13 @@ public class PhyllotaxisActivity extends AppCompatActivity
             col = (a - n) % 360; // follow spiral path
         }
         float[] hsv = {(int) col,100,100};
-        Paint paint = new Paint();
         paint.setColor(Color.HSVToColor(hsv));
 
-        // Draw dot
-        canvas.drawCircle((float) x, (float) y, size, paint);
+        canvas.drawCircle((float) x, (float) y, size, paint); // Draw point
         n++;
         if(n < max){
             point(n);
         }
-
         //Display
         phyloView.setBackground(bmd);
     }
@@ -291,44 +298,39 @@ public class PhyllotaxisActivity extends AppCompatActivity
     }
 
     public  void saveImage(BitmapDrawable bmd){
-        // Get the bitmap from drawable object
+        //get bitmap
         Bitmap bitmap = bmd.getBitmap();
+        //Create unique name
+        String timeStamp = new SimpleDateFormat("ddMMyy_HHmmss").format(new Date());
+        String imageFileName = "FT_" + timeStamp;
+        // Create a path where we will place our pictures
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File filePath = new File(path + "/PatternsImages");
+
         try {
-            File file = createImageFile();
+            // Make sure the Pictures directory exists.
+            path.mkdirs();
+            // Create file
+            File file = new File(filePath, imageFileName);
             FileOutputStream out = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
             out.close();
             Toast.makeText(this, "Image Saved", Toast.LENGTH_LONG).show();
-        }
-        catch (Exception e) {
+            // Tell the media scanner about the new file so that it is immediately available.
+            MediaScannerConnection.scanFile(this,
+                    new String[] { file.toString() }, null,
+                    new MediaScannerConnection.OnScanCompletedListener() {
+                        public void onScanCompleted(String path, Uri uri) {
+                            Log.i("ExternalStorage", "Scanned " + path + ":");
+                            Log.i("ExternalStorage", "-> uri=" + uri);
+                        }
+                    });
+        } catch (IOException e) {
+            // Unable to create file
+            e.printStackTrace();
             Toast.makeText(this, "Error While Saving", Toast.LENGTH_LONG).show();
         }
-    }
-
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("ddMMyy_HHmmss").format(new Date());
-        String imageFileName = "Phyllo_" + timeStamp;
-        String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
-        File storageDir = new File(root + "/PatternsImages"); //Save location
-        storageDir.mkdirs();
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-        mCurrentPhotoPath = image.getAbsolutePath();
-        galleryAddPic();
-        return image;
-    }
-
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        this.sendBroadcast(mediaScanIntent);
     }
 
     public void displayCSeeker(View view) {
@@ -361,5 +363,16 @@ public class PhyllotaxisActivity extends AppCompatActivity
         max_seeker.setVisibility(View.INVISIBLE);
         size_seeker.setVisibility(View.INVISIBLE);
         angle_seeker.setVisibility(View.VISIBLE);
+    }
+
+    public void EnableRuntimePermission(){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE))
+        {
+            Toast.makeText(PhyllotaxisActivity.this,"Save permission allowed", Toast.LENGTH_SHORT).show();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, RequestPermissionCode);
+        }
     }
 }
