@@ -30,15 +30,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 public class FractalTreeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -55,7 +51,6 @@ public class FractalTreeActivity extends AppCompatActivity
     int width, height;
     float angleRight = 30f, angleLeft = -30f, branchLen = 400, decayLength = 0.67f, levels = 80f, thickness = 10f;
     int backHue = -1, treeHue = -1;
-    String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,7 +167,6 @@ public class FractalTreeActivity extends AppCompatActivity
                 treeColorSeeker.setVisibility(View.GONE);
             }
         });
-
     }
 
     @Override

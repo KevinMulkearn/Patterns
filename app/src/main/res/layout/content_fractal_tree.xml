@@ -18,8 +18,7 @@
         <SeekBar
             android:id="@+id/backColorSeeker"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="#FFFFFF"
+            android:layout_height="40dp"
             android:max="360"
             android:progress="180"
             android:visibility="gone" />
@@ -27,8 +26,7 @@
         <SeekBar
             android:id="@+id/treeColorSeeker"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="#FFFFFF"
+            android:layout_height="40dp"
             android:max="360"
             android:progress="180"
             android:visibility="gone" />
@@ -101,7 +99,7 @@
     <SeekBar
         android:id="@+id/angleRightSeeker"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:background="#577480"
         android:max="180"
@@ -111,7 +109,7 @@
     <SeekBar
         android:id="@+id/angleLeftSeeker"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:background="#36484F"
         android:max="180"
@@ -121,7 +119,7 @@
     <SeekBar
         android:id="@+id/lengthSeeker"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:background="#263338"
         android:max="800"
@@ -131,7 +129,7 @@
     <SeekBar
         android:id="@+id/levelsSeeker"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:background="#1A2326"
         android:max="100"

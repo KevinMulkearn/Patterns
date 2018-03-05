@@ -25,18 +25,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -53,7 +48,6 @@ public class PhyllotaxisActivity extends AppCompatActivity
     Canvas canvas;
     Bitmap bm;
     BitmapDrawable bmd;
-    String mCurrentPhotoPath;
 
     int c = 20;
     int n = 0;
@@ -144,7 +138,6 @@ public class PhyllotaxisActivity extends AppCompatActivity
             public void onStartTrackingTouch(SeekBar seekBar) {}
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
-
     }
 
     @Override

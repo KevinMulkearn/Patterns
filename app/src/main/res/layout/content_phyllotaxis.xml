@@ -82,7 +82,7 @@
     <SeekBar
         android:id="@+id/c_seeker"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:background="#577480"
         android:max="100"
@@ -92,7 +92,7 @@
     <SeekBar
         android:id="@+id/max_seeker"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:background="#36484F"
         android:max="2999"
@@ -102,7 +102,7 @@
     <SeekBar
         android:id="@+id/size_seeker"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:background="#263338"
         android:max="20"
@@ -113,7 +113,7 @@
         android:id="@+id/angle_seeker"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:background="#1A2326"
         android:max="100"
         android:progress="50"
