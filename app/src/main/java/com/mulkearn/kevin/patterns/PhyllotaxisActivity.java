@@ -400,12 +400,12 @@ public class PhyllotaxisActivity extends AppCompatActivity
         String timeStamp = new SimpleDateFormat("ddMMyy_HHmmss").format(new Date());
         String imageFileName = "FT_" + timeStamp;
         // Create a path where we will place our pictures
-        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
         File filePath = new File(path + "/PatternsImages");
 
         try {
             // Make sure the Pictures directory exists.
-            path.mkdirs();
+            filePath.mkdirs();
             // Create file
             File file = new File(filePath, imageFileName);
             FileOutputStream out = new FileOutputStream(file);
