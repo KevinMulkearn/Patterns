@@ -68,7 +68,6 @@ public class FractalTreeActivity extends AppCompatActivity
         lengthSeeker = (SeekBar) findViewById(R.id.lengthSeeker);
         levelsSeeker = (SeekBar) findViewById(R.id.levelsSeeker);
         valueView = (TextView) findViewById(R.id.valueView);
-
         hueSeeker = (SeekBar) findViewById(R.id.hueSeeker);
         satSeeker = (SeekBar) findViewById(R.id.satSeeker);
         valSeeker = (SeekBar) findViewById(R.id.valSeeker);
@@ -259,7 +258,6 @@ public class FractalTreeActivity extends AppCompatActivity
         hsv[1] = (float) treeSat/100;
         hsv[2] = (float) treeVal/100;
         paint.setColor(Color.HSVToColor(hsv));
-
         //Create line
         paint.setStrokeWidth(thickness);
         canvas.drawLine(0, 0, 0, -branchLen, paint);
@@ -347,15 +345,6 @@ public class FractalTreeActivity extends AppCompatActivity
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
 
-    private int[] buildHueColorArray(){
-        int[] hueArr = new int[361];
-        int count = 0;
-        for (int i = hueArr.length - 1; i >= 0; i--, count++) {
-            hueArr[count] = Color.HSVToColor(new float[]{i, 1f, 1f});
-        }
-        return hueArr;
-    }
-
     public  void saveImage(BitmapDrawable bmd){
         //get bitmap
         Bitmap bitmap = bmd.getBitmap();
@@ -431,6 +420,15 @@ public class FractalTreeActivity extends AppCompatActivity
         doneButton.setVisibility(View.INVISIBLE);
     }
 
+    private int[] buildHueColorArray(){
+        int[] hueArr = new int[361];
+        int count = 0;
+        for (int i = hueArr.length - 1; i >= 0; i--, count++) {
+            hueArr[count] = Color.HSVToColor(new float[]{i, 1f, 1f});
+        }
+        return hueArr;
+    }
+
     public void setSliderGrads(){
         float[] temp = {0, 0, 0};
         float[] temp1 = {0, 0, 0};
@@ -460,12 +458,6 @@ public class FractalTreeActivity extends AppCompatActivity
         GradientDrawable satGrad = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, satGradValues);
         satGrad.setGradientType(GradientDrawable.LINEAR_GRADIENT);
         satSeeker.setBackgroundDrawable(satGrad);
-
-//        int orientation = this.getResources().getConfiguration().orientation;
-//        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-//            sat_s.setBackgroundColor(Color.HSVToColor(temp2));
-//        }
-
     }
 
     public void EnableRuntimePermission(){
@@ -478,6 +470,5 @@ public class FractalTreeActivity extends AppCompatActivity
                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, RequestPermissionCode);
         }
     }
-
 
 }

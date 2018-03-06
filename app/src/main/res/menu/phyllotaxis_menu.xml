@@ -2,10 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <item android:title="Color Scheme">
+    <item android:title="Select Color">
         <menu>
 
             <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/pointHSV"
+                    android:title="HSV Color" />
                 <item
                     android:id="@+id/map_range"
                     android:title="Map Range" />
@@ -19,6 +22,10 @@
                     android:id="@+id/path_follow"
                     android:title="Path Follow" />
             </group>
+
+            <item
+                android:id="@+id/backHSV"
+                android:title="Background Color" />
 
         </menu>
     </item>

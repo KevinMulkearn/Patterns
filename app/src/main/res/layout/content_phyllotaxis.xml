@@ -14,6 +14,38 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/valueOptions"
         android:orientation="vertical">
+
+        <SeekBar
+            android:id="@+id/hueSeeker"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:max="360"
+            android:visibility="gone" />
+
+        <SeekBar
+            android:id="@+id/satSeeker"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:max="100"
+            android:visibility="gone"/>
+
+        <SeekBar
+            android:id="@+id/valSeeker"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:max="100"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/doneButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            android:textColor="#FFFFFF"
+            android:onClick="onDoneClick"
+            android:visibility="gone"
+            android:background="#FF212121"/>
+
     </LinearLayout>
 
 
