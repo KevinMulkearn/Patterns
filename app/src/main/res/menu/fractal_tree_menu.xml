@@ -11,9 +11,6 @@
                 <item
                     android:id="@+id/tree_color"
                     android:title="Tree Color" />
-                <item
-                    android:id="@+id/spectrum"
-                    android:title="Spectrum" />
             </group>
 
         </menu>
