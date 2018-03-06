@@ -398,9 +398,9 @@ public class PhyllotaxisActivity extends AppCompatActivity
         Bitmap bitmap = bmd.getBitmap();
         //Create unique name
         String timeStamp = new SimpleDateFormat("ddMMyy_HHmmss").format(new Date());
-        String imageFileName = "FT_" + timeStamp;
+        String imageFileName = "FT_" + timeStamp + ".jpg";
         // Create a path where we will place our pictures
-        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File filePath = new File(path + "/PatternsImages");
 
         try {
